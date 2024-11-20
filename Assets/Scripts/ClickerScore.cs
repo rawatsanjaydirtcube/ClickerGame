@@ -20,12 +20,12 @@ public class ClickerScore : MonoBehaviourPunCallbacks
 
     public static byte GameScoreEventCode = 80;
 
-    private void OnEnable()
+    public override void OnEnable()
     {
         PhotonNetwork.NetworkingClient.EventReceived += OnEvent;
     }    
 
-    private void OnDisable()
+    public override void OnDisable()
     {
         PhotonNetwork.NetworkingClient.EventReceived += OnEvent;
     }
