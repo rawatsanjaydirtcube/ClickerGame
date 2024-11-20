@@ -16,7 +16,7 @@ public class ClickerScore : MonoBehaviourPunCallbacks
 
     public Dictionary<string, object> scoreDict = new();
 
-    private string name;
+    private string myName;
 
     public static byte GameScoreEventCode = 80;
 
@@ -33,34 +33,42 @@ public class ClickerScore : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        name = "User_" + Random.Range(0, 100);
+        myName = "User_" + Random.Range(0, 100);
     }
 
     public void AddScore()
     {
         myScore++;
         ScoreText.text = myScore.ToString();
-        UpdateDict(name, myScore.ToString());
+        UpdateDict(myName, myScore.ToString());
     }
 
     public void UpdateDict(string username,string score)
     {
-        scoreDict[username] = score;
-
-        object[] customData = new object[]
-            {
-                    name,
+        if (username == myName)
+        {
+            object[] customData = new object[]
+                {
+                    myName,
                     myScore
-            };
+                };
 
-        PhotonNetwork.RaiseEvent(GameScoreEventCode, customData, new RaiseEventOptions() { Receivers = ReceiverGroup.Others }, SendOptions.SendReliable);
+            PhotonNetwork.RaiseEvent(GameScoreEventCode, customData, new RaiseEventOptions() { Receivers = ReceiverGroup.Others }, SendOptions.SendReliable);
+        }
+        else
+        {
+          scoreDict[username] = score;
+        }
     }
 
     private void OnEvent(EventData data)
     {
         if(data.Code==GameScoreEventCode)
         {
-
+            object[] receivedData = (object[])data.CustomData;
+            string username = (string)receivedData[0];
+            string score = (string)receivedData[1];
+            UpdateDict(username, score);
         }
     }
 
