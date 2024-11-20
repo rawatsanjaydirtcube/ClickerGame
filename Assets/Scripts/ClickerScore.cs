@@ -23,8 +23,7 @@ public class ClickerScore : MonoBehaviourPunCallbacks
     private void OnEnable()
     {
         PhotonNetwork.NetworkingClient.EventReceived += OnEvent;
-    }
-    
+    }    
 
     private void OnDisable()
     {
@@ -50,7 +49,7 @@ public class ClickerScore : MonoBehaviourPunCallbacks
             object[] customData = new object[]
                 {
                     myName,
-                    myScore
+                    myScore.ToString(),
                 };
 
             PhotonNetwork.RaiseEvent(GameScoreEventCode, customData, new RaiseEventOptions() { Receivers = ReceiverGroup.Others }, SendOptions.SendReliable);
