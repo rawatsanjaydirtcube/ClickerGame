@@ -54,10 +54,9 @@ public class ClickerScore : MonoBehaviourPunCallbacks
 
             PhotonNetwork.RaiseEvent(GameScoreEventCode, customData, new RaiseEventOptions() { Receivers = ReceiverGroup.Others }, SendOptions.SendReliable);
         }
-        else
-        {
-          scoreDict[username] = score;
-        }
+
+        scoreDict[username] = score;
+
     }
 
     private void OnEvent(EventData data)
