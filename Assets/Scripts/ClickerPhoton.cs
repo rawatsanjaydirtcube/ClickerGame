@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
@@ -28,6 +26,7 @@ public class ClickerPhoton : MonoBehaviourPunCallbacks
 
         PhotonNetwork.JoinLobby(testLobby);
         ShowDebug("OnConnectedToMaster");
+
     }
 
     public override void OnJoinedLobby()
@@ -35,7 +34,10 @@ public class ClickerPhoton : MonoBehaviourPunCallbacks
         base.OnJoinedLobby();
         ShowDebug("On Joined Lobby");
 
-        PhotonNetwork.JoinRandomOrCreateRoom();
+        RoomOptions myRoomOptions = new RoomOptions();
+        myRoomOptions.MaxPlayers = 2;
+
+        PhotonNetwork.JoinRandomOrCreateRoom(roomOptions:myRoomOptions);
     }
 
     public override void OnJoinedRoom()
