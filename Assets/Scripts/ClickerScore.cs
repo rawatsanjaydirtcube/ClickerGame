@@ -70,16 +70,12 @@ public class ClickerScore : MonoBehaviourPunCallbacks
         }
     }
 
-    public void SubmitScore()
-    {
-
-    }
-
     public void DisplayScore()
     {
         foreach (var item in scoreDict)
         {
-            DebugArea.text = $"Key is {item.Key} and value is {item.Value}";
+            DebugArea.text += $"Key is {item.Key} and value is {item.Value}";
+            Debug.Log($"Key is {item.Key} and value is {item.Value}");
         }
     }
 
